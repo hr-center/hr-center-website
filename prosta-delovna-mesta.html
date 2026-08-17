@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prosta delovna mesta | HR Center</title>
+<meta name="description" content="Prebrskajte prosta delovna mesta pri partnerskih podjetjih HR Center po vsej Sloveniji in se prijavite še danes.">
+<link rel="icon" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand"><img src="assets/images/logo.png" alt="HR Center"></a>
+    <nav class="main-nav">
+      <a href="index.html" data-page="index.html">Domov</a>
+      <a href="o-nas.html" data-page="o-nas.html">O nas</a>
+      <a href="delodajalci.html" data-page="delodajalci.html">Za delodajalce</a>
+      <a href="prosta-delovna-mesta.html" data-page="prosta-delovna-mesta.html">Prosta delovna mesta</a>
+      <a href="kontakt.html" data-page="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="header-ctas">
+      <a href="delodajalci.html#kontakt" class="btn btn-outline">Za delodajalce</a>
+      <a href="prosta-delovna-mesta.html" class="btn btn-primary">Prosta delovna mesta</a>
+      <button class="nav-toggle" aria-label="Odpri meni" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="eyebrow">Za iskalce zaposlitve</div>
+    <h1>Prosta delovna mesta</h1>
+    <p>Prebrskajte trenutno odprte pozicije pri naših partnerskih podjetjih. Nova delovna mesta objavljamo redno — če med njimi ne najdete pravega, nam vseeno pošljite svoj življenjepis.</p>
+  </div>
+</div>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="filters-bar">
+      <select id="filter-location">
+        <option value="">Vse lokacije</option>
+      </select>
+      <select id="filter-category">
+        <option value="">Vsa področja</option>
+      </select>
+      <span class="results-count" id="results-count"></span>
+    </div>
+
+    <div id="job-list"></div>
+  </div>
+</section>
+
+<section class="section-teal section-tight">
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+    <div>
+      <h2 style="margin-bottom:6px;">Ne najdete pravega delovnega mesta?</h2>
+      <p style="margin-bottom:0;">Pošljite nam svoj življenjepis — obvestili vas bomo, ko se odpre ustrezna pozicija.</p>
+    </div>
+    <a href="kontakt.html" class="btn" style="background:var(--ink); color:#fff;">Pošlji življenjepis →</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/images/logo.png" alt="HR Center" style="height:34px; margin-bottom:14px; filter:brightness(0) invert(1);">
+        <p style="color:rgba(255,255,255,.6); font-size:14px; max-width:32ch;">Vaši ljudje, naša skrb. Kadrovska agencija z 10-letnimi izkušnjami na slovenskem trgu dela.</p>
+      </div>
+      <div>
+        <h4>Strani</h4>
+        <a href="o-nas.html">O nas</a>
+        <a href="delodajalci.html">Za delodajalce</a>
+        <a href="prosta-delovna-mesta.html">Prosta delovna mesta</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+      <div>
+        <h4>Storitve</h4>
+        <a href="delodajalci.html#storitve">Iskanje in selekcija</a>
+        <a href="delodajalci.html#storitve">Najem delavcev</a>
+        <a href="delodajalci.html#storitve">Delovna dovoljenja</a>
+        <a href="delodajalci.html#storitve">Obračun plač</a>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <a href="mailto:info@hr-center.si">info@hr-center.si</a>
+        <a href="tel:+38651676767">051 67 67 67</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> HR Center. Vse pravice pridržane.</span>
+      <span>Slovenija</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/jobs-data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delovno mesto | HR Center</title>
+<meta name="description" content="Podrobnosti o prostem delovnem mestu in prijava pri HR Center.">
+<link rel="icon" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand"><img src="assets/images/logo.png" alt="HR Center"></a>
+    <nav class="main-nav">
+      <a href="index.html" data-page="index.html">Domov</a>
+      <a href="o-nas.html" data-page="o-nas.html">O nas</a>
+      <a href="delodajalci.html" data-page="delodajalci.html">Za delodajalce</a>
+      <a href="prosta-delovna-mesta.html" data-page="prosta-delovna-mesta.html">Prosta delovna mesta</a>
+      <a href="kontakt.html" data-page="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="header-ctas">
+      <a href="delodajalci.html#kontakt" class="btn btn-outline">Za delodajalce</a>
+      <a href="prosta-delovna-mesta.html" class="btn btn-primary">Prosta delovna mesta</a>
+      <button class="nav-toggle" aria-label="Odpri meni" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="section-tight">
+  <div class="container" style="max-width:820px;">
+    <a href="prosta-delovna-mesta.html" class="back-link">← Vsa prosta delovna mesta</a>
+    <div id="job-detail"><!-- polni se dinamično iz jobs-data.js --></div>
+  </div>
+</section>
+
+<section id="prijava" class="section-pale">
+  <div class="container" style="max-width:820px;">
+    <div class="section-head">
+      <div class="eyebrow">Prijava</div>
+      <h2>Prijava na delovno mesto: <span id="job-title-label">—</span></h2>
+      <p>Izpolnite spodnji obrazec in priložite svoj življenjepis. Vaše podatke bomo obravnavali zaupno.</p>
+    </div>
+
+    <div class="form-card">
+      <form name="prijava-delovno-mesto" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" data-netlify-ajax="true">
+        <input type="hidden" name="form-name" value="prijava-delovno-mesto">
+        <input type="hidden" name="delovno-mesto" id="applying-for" value="">
+        <p class="hidden" style="display:none;"><label>Ne izpolnjujte: <input name="bot-field"></label></p>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="pr-ime">Ime in priimek</label>
+            <input type="text" id="pr-ime" name="ime" required>
+          </div>
+          <div class="field">
+            <label for="pr-email">E-pošta</label>
+            <input type="email" id="pr-email" name="email" required>
+          </div>
+          <div class="field">
+            <label for="pr-telefon">Telefon</label>
+            <input type="tel" id="pr-telefon" name="telefon" required>
+          </div>
+          <div class="field">
+            <label for="pr-lokacija">Kraj bivanja</label>
+            <input type="text" id="pr-lokacija" name="lokacija">
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="pr-sporocilo">Kratko sporočilo <span class="hint">(neobvezno)</span></label>
+          <textarea id="pr-sporocilo" name="sporocilo" placeholder="Povejte nam nekaj o sebi ali zakaj vas zanima to delovno mesto..."></textarea>
+        </div>
+
+        <div class="field full">
+          <label for="pr-cv">Življenjepis (CV) <span class="hint">— PDF ali Word, do 10&nbsp;MB</span></label>
+          <label class="file-drop" for="pr-cv">
+            <input type="file" id="pr-cv" name="cv" accept=".pdf,.doc,.docx" required>
+            <span>📎 Kliknite za izbiro datoteke</span>
+            <div class="fname"></div>
+          </label>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" required>
+          <span>Strinjam se, da HR Center obdeluje moje osebne podatke za namen izbirnega postopka in me lahko kontaktira glede te ali podobnih zaposlitvenih priložnosti.</span>
+        </label>
+
+        <button type="submit" class="btn btn-coral btn-block">Pošlji prijavo</button>
+        <div class="form-status"></div>
+        <p class="form-note">S klikom na "Pošlji prijavo" bo vaša prijava, vključno s CV-jem, posredovana ekipi HR Center.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/images/logo.png" alt="HR Center" style="height:34px; margin-bottom:14px; filter:brightness(0) invert(1);">
+        <p style="color:rgba(255,255,255,.6); font-size:14px; max-width:32ch;">Vaši ljudje, naša skrb. Kadrovska agencija z 10-letnimi izkušnjami na slovenskem trgu dela.</p>
+      </div>
+      <div>
+        <h4>Strani</h4>
+        <a href="o-nas.html">O nas</a>
+        <a href="delodajalci.html">Za delodajalce</a>
+        <a href="prosta-delovna-mesta.html">Prosta delovna mesta</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+      <div>
+        <h4>Storitve</h4>
+        <a href="delodajalci.html#storitve">Iskanje in selekcija</a>
+        <a href="delodajalci.html#storitve">Najem delavcev</a>
+        <a href="delodajalci.html#storitve">Delovna dovoljenja</a>
+        <a href="delodajalci.html#storitve">Obračun plač</a>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <a href="mailto:info@hr-center.si">info@hr-center.si</a>
+        <a href="tel:+38651676767">051 67 67 67</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> HR Center. Vse pravice pridržane.</span>
+      <span>Slovenija</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/jobs-data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
