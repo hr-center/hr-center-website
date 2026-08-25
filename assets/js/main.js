@@ -101,15 +101,16 @@ function initNetlifyForms(){
 
       fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
+        body: formData
       })
-      .then(() => {
+      .then((res) => {
+        if(!res.ok) throw new Error('Napaka pri pošiljanju: ' + res.status);
         form.reset();
         document.querySelectorAll('.file-drop .fname').forEach(l => l.textContent = '');
         if(status){ status.textContent = 'Hvala! Vaše sporočilo smo prejeli in se vam bomo kmalu oglasili.'; status.className = 'form-status ok'; }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error(err);
         if(status){ status.textContent = 'Prišlo je do napake pri pošiljanju. Prosimo, poskusite znova ali nam pišite na info@hr-center.si.'; status.className = 'form-status err'; }
       })
       .finally(() => { if(submitBtn) submitBtn.disabled = false; });
