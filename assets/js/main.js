@@ -26,7 +26,8 @@ function initNav(){
 }
 
 function setActiveNavLink(){
-  const page = (location.pathname.split('/').pop() || 'index.html');
+  let page = (location.pathname.split('/').pop() || 'index.html');
+  if(page === 'delovno-mesto.html') page = 'prosta-delovna-mesta.html';
   document.querySelectorAll('.main-nav a[data-page]').forEach(a => {
     if(a.dataset.page === page) a.classList.add('active');
   });
@@ -119,38 +120,65 @@ function initNetlifyForms(){
 }
 
 /* ---------- Job listing (prosta-delovna-mesta.html) ---------- */
+const JOB_ICONS = {"proizvodnja": "<svg viewBox=\"0 0 64 64\"><circle class=\"badge-ring\" cx=\"32\" cy=\"32\" r=\"29\"/><path class=\"badge-glyph\" fill=\"none\" stroke-linejoin=\"round\" d=\"M16 44V28l9 6v-6l9 6v-6l9 6V22l9 8v14z\"/><line class=\"badge-glyph\" x1=\"14\" y1=\"44\" x2=\"50\" y2=\"44\"/><rect fill=\"var(--teal)\" x=\"41\" y=\"16\" width=\"4\" height=\"6\"/><circle class=\"badge-accent\" cx=\"32\" cy=\"4.5\" r=\"3\"/></svg>", "logistika": "<svg viewBox=\"0 0 64 64\"><circle class=\"badge-ring\" cx=\"32\" cy=\"32\" r=\"29\"/><rect class=\"badge-glyph\" x=\"14\" y=\"24\" width=\"20\" height=\"14\" rx=\"1.5\"/><path class=\"badge-glyph\" style=\"stroke-linejoin:round\" d=\"M34 29h7l6 6v3h-13z\"/><circle fill=\"var(--white)\" class=\"badge-glyph\" cx=\"21\" cy=\"40\" r=\"3\"/><circle fill=\"var(--white)\" class=\"badge-glyph\" cx=\"42\" cy=\"40\" r=\"3\"/><line style=\"stroke:var(--teal)\" x1=\"18\" y1=\"30\" x2=\"30\" y2=\"30\" stroke-width=\"2\"/><circle class=\"badge-accent\" cx=\"32\" cy=\"4.5\" r=\"3\"/></svg>", "prodaja": "<svg viewBox=\"0 0 64 64\"><circle class=\"badge-ring\" cx=\"32\" cy=\"32\" r=\"29\"/><path class=\"badge-glyph\" style=\"stroke-linejoin:round\" d=\"M20 26h24l-2 20a2 2 0 0 1-2 2H24a2 2 0 0 1-2-2z\"/><path class=\"badge-glyph\" d=\"M25 26v-3a7 7 0 0 1 14 0v3\"/><circle fill=\"var(--teal)\" cx=\"32\" cy=\"34\" r=\"2.4\"/><circle class=\"badge-accent\" cx=\"32\" cy=\"4.5\" r=\"3\"/></svg>", "admin": "<svg viewBox=\"0 0 64 64\"><circle class=\"badge-ring\" cx=\"32\" cy=\"32\" r=\"29\"/><path class=\"badge-glyph\" style=\"stroke-linejoin:round\" d=\"M16 24h11l3 4h18v17a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2V26a2 2 0 0 1 2-2z\"/><line style=\"stroke:var(--teal)\" x1=\"20\" y1=\"36\" x2=\"40\" y2=\"36\" stroke-width=\"2.2\"/><line style=\"stroke:var(--teal)\" x1=\"20\" y1=\"41\" x2=\"34\" y2=\"41\" stroke-width=\"2.2\"/><circle class=\"badge-accent\" cx=\"32\" cy=\"4.5\" r=\"3\"/></svg>", "gostinstvo": "<svg viewBox=\"0 0 64 64\"><circle class=\"badge-ring\" cx=\"32\" cy=\"32\" r=\"29\"/><path class=\"badge-glyph\" style=\"stroke-linejoin:round\" stroke-width=\"2.3\" d=\"M22 32a7 7 0 0 1 3-13 6 6 0 0 1 11 -2 6 6 0 0 1 8 6 7 7 0 0 1 -2 9\"/><rect class=\"badge-glyph\" stroke-width=\"2.3\" x=\"23\" y=\"31\" width=\"18\" height=\"7\"/><line style=\"stroke:var(--teal)\" x1=\"21\" y1=\"45\" x2=\"43\" y2=\"45\" stroke-width=\"2.4\"/><line class=\"badge-glyph\" stroke-width=\"2.2\" x1=\"23\" y1=\"38\" x2=\"21\" y2=\"45\"/><line class=\"badge-glyph\" stroke-width=\"2.2\" x1=\"41\" y1=\"38\" x2=\"43\" y2=\"45\"/><circle class=\"badge-accent\" cx=\"32\" cy=\"4.5\" r=\"3\"/></svg>"};
+const JOB_ICON_BY_CATEGORY = { 'Logistika':'logistika', 'Proizvodnja':'proizvodnja', 'Prodaja':'prodaja', 'Kadrovska administracija':'admin', 'Gostinstvo':'gostinstvo', 'Finance in računovodstvo':'admin' };
+const PIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+const CAL_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+const ARROW_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+function deadlineOf(job){
+  if(job.deadline) return new Date(job.deadline + 'T23:59:59');
+  const d = new Date(job.posted + 'T00:00:00');
+  d.setMonth(d.getMonth() + 1);
+  d.setHours(23, 59, 59, 0);
+  return d;
+}
+function formatShort(d){
+  const dt = (d instanceof Date) ? d : new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('sl-SI', { day:'numeric', month:'numeric', year:'numeric' });
+}
+function isOpen(job){ return deadlineOf(job) >= new Date(); }
+
 function renderJobList(){
   const wrap = document.getElementById('job-list');
+  const JOBS_OPEN = JOBS.filter(isOpen).sort((a,b) => b.posted.localeCompare(a.posted));
+  const side = document.getElementById('job-filters');
   if(!wrap || typeof JOBS === 'undefined') return;
-
-  const locationFilter = document.getElementById('filter-location');
-  const categoryFilter = document.getElementById('filter-category');
   const countEl = document.getElementById('results-count');
 
-  function uniq(arr){ return [...new Set(arr)]; }
-  if(locationFilter){
-    uniq(JOBS.map(j => j.location)).sort().forEach(loc => {
-      const opt = document.createElement('option');
-      opt.value = loc; opt.textContent = loc;
-      locationFilter.appendChild(opt);
-    });
+  const groups = [
+    { key:'location', title:'Lokacija' },
+    { key:'category', title:'Področje dela' },
+    { key:'type', title:'Vrsta dela' }
+  ];
+  const selected = { location:new Set(), category:new Set(), type:new Set() };
+
+  function counts(key){
+    const m = {};
+    JOBS_OPEN.forEach(j => { m[j[key]] = (m[j[key]] || 0) + 1; });
+    return Object.keys(m).sort().map(k => [k, m[k]]);
   }
-  if(categoryFilter){
-    uniq(JOBS.map(j => j.category)).sort().forEach(cat => {
-      const opt = document.createElement('option');
-      opt.value = cat; opt.textContent = cat;
-      categoryFilter.appendChild(opt);
+
+  if(side){
+    side.innerHTML = `<div class="jf-head"><h2>Filter</h2><button type="button" class="jf-reset">Počisti</button></div>` +
+      groups.map(g => `<div class="jf-group"><h3>${g.title}</h3>` +
+        counts(g.key).map(([val, n]) => `<label class="jf-opt"><input type="checkbox" data-key="${g.key}" value="${val}"><span>${val}</span><span class="n">${n}</span></label>`).join('') +
+        `</div>`).join('');
+    side.addEventListener('change', (e) => {
+      const el = e.target;
+      if(!el.dataset || !el.dataset.key) return;
+      if(el.checked) selected[el.dataset.key].add(el.value); else selected[el.dataset.key].delete(el.value);
+      draw();
+    });
+    side.querySelector('.jf-reset').addEventListener('click', () => {
+      Object.values(selected).forEach(s => s.clear());
+      side.querySelectorAll('input[type=checkbox]').forEach(i => i.checked = false);
+      draw();
     });
   }
 
   function draw(){
-    const locVal = locationFilter ? locationFilter.value : '';
-    const catVal = categoryFilter ? categoryFilter.value : '';
-    const filtered = JOBS.filter(j =>
-      (!locVal || j.location === locVal) &&
-      (!catVal || j.category === catVal)
-    );
-
+    const filtered = JOBS_OPEN.filter(j => groups.every(g => selected[g.key].size === 0 || selected[g.key].has(j[g.key])));
     wrap.innerHTML = '';
     if(filtered.length === 0){
       wrap.innerHTML = `<p style="padding:40px 0; text-align:center;">Trenutno ni prostih delovnih mest, ki bi ustrezala izbranim filtrom.</p>`;
@@ -159,24 +187,25 @@ function renderJobList(){
       const a = document.createElement('a');
       a.href = `delovno-mesto.html?id=${encodeURIComponent(job.id)}`;
       a.className = 'job-card';
+      const icon = JOB_ICONS[JOB_ICON_BY_CATEGORY[job.category] || 'admin'];
       a.innerHTML = `
-        <div>
+        <div class="job-ico"><div class="icon-badge">${icon}</div></div>
+        <div class="job-main">
           <h3>${job.title}</h3>
-          <div class="job-meta">
-            <span>📍 ${job.location}</span>
-            <span>🕘 ${job.type}</span>
+          <p>${job.summary}</p>
+          <div class="job-chips">
+            <span class="chip">${CAL_SVG}Objavljeno ${formatShort(job.posted)}</span>
+            <span class="chip">${PIN_SVG}${job.location}</span>
+            <span class="chip accent">${job.type}</span>${job.note ? `<span class="chip accent">${job.note}</span>` : ''}
           </div>
-          <span class="job-tag">${job.category}</span>
         </div>
-        <div class="btn btn-outline" aria-hidden="true">Poglej razpis →</div>
+        <div class="job-deadline"><span>Rok prijave</span><strong>${formatShort(deadlineOf(job))}</strong></div>
+        <div class="job-arrow" aria-hidden="true">${ARROW_SVG}</div>
       `;
       wrap.appendChild(a);
     });
     if(countEl) countEl.textContent = `${filtered.length} ${filtered.length === 1 ? 'prosto delovno mesto' : 'prostih delovnih mest'}`;
   }
-
-  if(locationFilter) locationFilter.addEventListener('change', draw);
-  if(categoryFilter) categoryFilter.addEventListener('change', draw);
   draw();
 }
 
@@ -214,6 +243,8 @@ function renderJobDetail(){
           <span>📍 ${job.location}</span>
           <span>🕘 ${job.type}</span>
           <span>🗓️ Objavljeno: ${formatDate(job.posted)}</span>
+          <span>⏳ Rok prijave: ${formatDate(deadlineOf(job).toISOString().slice(0,10))}</span>
+          ${job.note ? `<span>🔁 ${job.note}</span>` : ''}
         </div>
       </div>
       <a href="#prijava" class="btn btn-coral">Prijavi se</a>

@@ -4,12 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kalkulator plače — neto/bruto | HR Center</title>
-<meta name="description" content="Brezplačen kalkulator plače za Slovenijo. Izračunajte neto plačo iz bruto zneska ali obratno, po veljavni dohodninski lestvici in prispevkih za leto 2026.">
+<meta name="description" content="Brezplačen kalkulator plače za Slovenijo. Izračunajte neto plačo iz bruto zneska ali obratno, z malico, prevozom, bonitetami in olajšavami, po veljavni zakonodaji za leto 2026.">
 <link rel="icon" href="assets/images/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20260828">
+<link rel="preload" href="assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css?v=20261111m">
 </head>
 <body>
 
@@ -19,87 +17,176 @@
     <nav class="main-nav">
       <a href="o-nas.html" data-page="o-nas.html">O nas</a>
       <a href="delodajalci.html" data-page="delodajalci.html">Za delodajalce</a>
-      <a href="prosta-delovna-mesta.html" data-page="prosta-delovna-mesta.html">Prosta delovna mesta</a>
+      <a href="prosta-delovna-mesta.html" data-page="prosta-delovna-mesta.html">Za iskalce zaposlitve</a>
       <a href="kontakt.html" data-page="kontakt.html">Kontakt</a>
+      <a href="kalkulator-place.html" data-page="kalkulator-place.html" class="nav-mobile-only">Kalkulator plače</a>
     </nav>
     <div class="header-ctas">
-      <a href="delodajalci.html#kontakt" class="btn btn-outline">Za delodajalce</a>
-      <a href="prosta-delovna-mesta.html" class="btn btn-primary">Za iskalce zaposlitve</a>
       <a href="kalkulator-place.html" class="btn btn-calc">Kalkulator plače</a>
+      <a href="prosta-delovna-mesta.html#vpis-v-bazo" class="btn btn-db">Vpis v bazo</a>
       <button class="nav-toggle" aria-label="Odpri meni" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 
-<div class="page-hero">
+<div class="page-hero tint">
   <div class="container">
     <div class="eyebrow">Brezplačno orodje</div>
     <h1>Kalkulator plače: neto ↔ bruto.</h1>
-    <p>Vnesite bruto ali neto mesečno plačo in v trenutku dobite oceno drugega zneska, obračunanih prispevkov, dohodnine in celotnega stroška za delodajalca — po veljavni slovenski zakonodaji za leto 2026.</p>
+    <p>Vnesite plačo, dodajte malico, prevoz, bonitete in olajšave ter takoj dobite neto, bruto, skupno izplačilo na račun in celoten strošek za delodajalca — po veljavni slovenski zakonodaji za leto 2026.</p>
   </div>
 </div>
 
 <section class="section-tight">
-  <div class="container" style="max-width:900px;">
+  <div class="container">
+    <div class="calc3">
 
-    <div class="calc-card">
-      <div class="calc-toggle" role="tablist">
-        <button type="button" class="calc-toggle-btn active" data-mode="gross2net">Iz bruto v neto</button>
-        <button type="button" class="calc-toggle-btn" data-mode="net2gross">Iz neto v bruto</button>
-      </div>
+      <div class="calc3-col s1">
+        <div class="calc3-step"><b>01</b><h2>Plača</h2></div>
 
-      <div class="field" style="margin-top:22px;">
-        <label for="calc-amount"><span id="calc-amount-label">Bruto mesečna plača</span> (EUR)</label>
-        <input type="number" id="calc-amount" inputmode="decimal" placeholder="npr. 2000" min="0" step="1">
-      </div>
+        <div class="calc3-seg" role="group" aria-label="Smer izračuna">
+          <button type="button" class="calc3-seg-btn active" data-mode="gross2net">Bruto → neto</button>
+          <button type="button" class="calc3-seg-btn" data-mode="net2gross">Neto → bruto</button>
+        </div>
+        <div class="calc3-seg" role="group" aria-label="Obdobje vnosa">
+          <button type="button" class="calc3-seg-btn active" data-period="month">Mesečno</button>
+          <button type="button" class="calc3-seg-btn" data-period="hour">Na uro</button>
+        </div>
 
-      <label class="consent" style="margin-bottom:4px;">
-        <input type="checkbox" id="calc-young">
-        <span>Upoštevaj olajšavo za mlade do 29 let (velja le pri letni odmeri dohodnine, ne pri mesečni akontaciji — prikazano informativno)</span>
-      </label>
+        <div class="field">
+          <label for="calc-amount" id="calc-amount-label">Bruto mesečna plača (€)</label>
+          <input type="text" id="calc-amount" inputmode="decimal" placeholder="npr. 2000">
+        </div>
+        <div class="field" id="calc-hours-field" style="display:none;">
+          <label for="calc-hours">Delovnih ur na mesec</label>
+          <input type="text" id="calc-hours" inputmode="decimal" value="174">
+        </div>
+        <span class="calc3-chip">Minimalna bruto plača 2026: 1.481,88 €</span>
 
-      <button type="button" id="calc-run" class="btn btn-primary btn-block" style="margin-top:14px;">Izračunaj</button>
+        <div class="field">
+          <label for="calc-benefits">Bonitete (€ na mesec)</label>
+          <input type="text" id="calc-benefits" inputmode="decimal" placeholder="0">
+          <span class="calc-hint">Npr. službeno vozilo za zasebno rabo. Obdavčene, a ne izplačane.</span>
+        </div>
 
-      <div id="calc-result" class="calc-result" style="display:none;">
-        <div class="calc-result-grid">
-          <div class="calc-result-item calc-result-main">
-            <span class="calc-result-label" id="calc-result-main-label">Neto plača</span>
-            <span class="calc-result-value" id="calc-result-main-value">—</span>
+        <h3 class="calc3-sub">Malica in prevoz</h3>
+        <div class="calc3-pair">
+          <div class="field">
+            <label for="calc-meal">Malica (€ na dan)</label>
+            <input type="text" id="calc-meal" inputmode="decimal" placeholder="npr. 6,12">
           </div>
-          <div class="calc-result-item">
-            <span class="calc-result-label" id="calc-result-secondary-label">Bruto plača</span>
-            <span class="calc-result-value" id="calc-result-secondary-value">—</span>
+          <div class="field">
+            <label for="calc-days">Delovnih dni</label>
+            <input type="text" id="calc-days" inputmode="numeric" value="21">
           </div>
         </div>
-        <div class="calc-breakdown">
-          <div class="calc-breakdown-row"><span>Prispevki delojemalca (23,10 %)</span><span id="calc-contrib">—</span></div>
-          <div class="calc-breakdown-row"><span>Davčna osnova</span><span id="calc-base">—</span></div>
-          <div class="calc-breakdown-row"><span>Splošna olajšava</span><span id="calc-allowance">—</span></div>
-          <div class="calc-breakdown-row"><span>Akontacija dohodnine</span><span id="calc-tax">—</span></div>
-          <div class="calc-breakdown-row calc-breakdown-total"><span>Skupni strošek delodajalca (bruto + 17,10 %)</span><span id="calc-employer-cost">—</span></div>
+        <div class="field">
+          <label for="calc-travel-type">Prevoz na delo</label>
+          <select id="calc-travel-type">
+            <option value="none">Brez povračila prevoza</option>
+            <option value="car">Osebni prevoz (kilometrina)</option>
+            <option value="public">Javni prevoz (vozovnica)</option>
+          </select>
+        </div>
+        <div id="calc-travel-car" class="calc3-pair" style="display:none;">
+          <div class="field">
+            <label for="calc-km">Razdalja (km, v eno smer)</label>
+            <input type="text" id="calc-km" inputmode="decimal" placeholder="npr. 20">
+          </div>
+          <div class="field">
+            <label for="calc-km-rate">Povračilo na km (€)</label>
+            <input type="text" id="calc-km-rate" inputmode="decimal" value="0,21">
+          </div>
+        </div>
+        <div id="calc-travel-public" class="field" style="display:none;">
+          <label for="calc-public">Vozovnica (€ na mesec)</label>
+          <input type="text" id="calc-public" inputmode="decimal" placeholder="npr. 45">
+        </div>
+        <span class="calc-hint">Neobdavčeno: malica do 7,96 € na dan, prevoz do 0,21 € na km (najmanj 140 € na mesec), vozovnica v celoti.</span>
+      </div>
+
+      <div class="calc3-col s2">
+        <div class="calc3-step"><b>02</b><h2>Davčne olajšave</h2></div>
+
+        <label class="calc3-check"><input type="checkbox" id="calc-nogeneral"><span>Brez splošne davčne olajšave (462,66 €)</span></label>
+        <label class="calc3-check"><input type="checkbox" id="calc-over70"><span>Starejši od 70 let</span></label>
+        <label class="calc3-check"><input type="checkbox" id="calc-invalid"><span>Invalid s 100 % telesno okvaro</span></label>
+        <label class="calc3-check"><input type="checkbox" id="calc-young"><span>Mlajši od 29 let (olajšava ob letni odmeri)</span></label>
+
+        <div class="field">
+          <label for="calc-children">Vzdrževani otroci</label>
+          <select id="calc-children"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>
+        </div>
+        <div class="field">
+          <label for="calc-children-special">Otroci s posebno nego in varstvom</label>
+          <select id="calc-children-special"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select>
+        </div>
+        <div class="field">
+          <label for="calc-dependents">Drugi vzdrževani družinski člani</label>
+          <select id="calc-dependents"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>
+        </div>
+        <span class="calc-hint">Otrok s posebno nego ne štejte še enkrat med navadne otroke. Drugi družinski člani so npr. nezaposlen zakonec ali partner, starši ali posvojitelji brez lastnih dohodkov.</span>
+      </div>
+
+      <div class="calc3-col s3">
+        <div class="calc3-step"><b>03</b><h2>Izračun</h2></div>
+
+        <div id="calc-placeholder" class="calc3-placeholder">
+          <p>Vnesite plačo v koraku 01. Rezultat se osveži samodejno ob vsaki spremembi.</p>
+        </div>
+
+        <div id="calc-result" style="display:none;">
+          <div class="calc3-out"><span>Bruto plača</span><strong id="o-gross">—</strong></div>
+          <div class="calc3-out key"><span>Neto plača</span><strong id="o-net">—</strong></div>
+          <div class="calc3-out"><span>Povračila (malica, prevoz)</span><strong id="o-extras">—</strong></div>
+          <div class="calc3-out key"><span>Nakazilo na račun</span><strong id="o-payout">—</strong></div>
+          <div class="calc3-out"><span>Strošek delodajalca</span><strong id="o-cost">—</strong></div>
+
+          <details class="calc3-more">
+            <summary>Bolj podrobno</summary>
+            <div class="calc3-line"><span>Bruto plača</span><span id="r-gross">—</span></div>
+            <div class="calc3-line" id="row-benefits"><span>Bonitete</span><span id="r-benefits">—</span></div>
+            <div class="calc3-line" id="row-excess"><span>Obdavčljivi del povračil</span><span id="r-excess">—</span></div>
+            <div class="calc3-line"><span>Skupaj obdavčljivi bruto</span><span id="r-total-gross">—</span></div>
+            <div class="calc3-line"><span>Prispevki delojemalca (23,10 %)</span><span id="r-contrib">—</span></div>
+            <div class="calc3-line"><span>Splošna olajšava</span><span id="r-general">—</span></div>
+            <div class="calc3-line" id="row-other"><span>Druge olajšave</span><span id="r-other">—</span></div>
+            <div class="calc3-line"><span>Davčna osnova</span><span id="r-base">—</span></div>
+            <div class="calc3-line"><span>Akontacija dohodnine</span><span id="r-tax">—</span></div>
+            <div class="calc3-line" id="row-meal"><span>Povračilo malice (neobdavčeno)</span><span id="r-meal">—</span></div>
+            <div class="calc3-line" id="row-travel"><span>Povračilo prevoza (neobdavčeno)</span><span id="r-travel">—</span></div>
+            <div class="calc3-line"><span>Prispevki delodajalca (17,10 %)</span><span id="r-employer-contrib">—</span></div>
+            <h4 class="calc3-hourly">Na uro (<span id="h-hours">174</span> ur na mesec)</h4>
+            <div class="calc3-line"><span>Neto plača</span><span id="h-net">—</span></div>
+            <div class="calc3-line"><span>Bruto plača</span><span id="h-gross">—</span></div>
+            <div class="calc3-line"><span>Strošek delodajalca</span><span id="h-cost">—</span></div>
+          </details>
+          <p id="calc-notes" class="calc-hint" style="display:none; margin-top:14px;"></p>
         </div>
       </div>
+
     </div>
 
-    <p class="calc-disclaimer">Izračun je okviren in namenjen splošni orientaciji glede na dohodninsko lestvico in stopnje prispevkov, veljavne za leto 2026 (Uradni list RS, št. 104/25). Ne upošteva vseh možnih olajšav (npr. za vzdrževane družinske člane) niti posebnosti posameznega delovnega razmerja. Ni davčno ali finančno svetovanje — za zavezujoč izračun se obrnite na računovodjo ali FURS.</p>
+    <p class="calc-disclaimer">Izračun je okviren in namenjen splošni orientaciji. Temelji na dohodninski lestvici in olajšavah za leto 2026 (Uradni list RS, št. 104/25), prispevkih 23,10 % (delojemalec) in 17,10 % (delodajalec) ter na zakonskih mejah neobdavčenih povračil stroškov (malica 7,96 € na dan, prevoz 0,21 € na km, najmanj 140 € na mesec). Povračila stroškov so prikazana poleg plače in se ne vštevajo v bruto, razen dela nad neobdavčeno mejo. Pri olajšavah za otroke z vzdrževanimi člani je upoštevan vrstni red po številu. Ni davčno ali finančno svetovanje — za zavezujoč izračun se obrnite na računovodjo ali FURS.</p>
+  </div>
+</section>
 
-    <div class="section-head center" style="margin-top:56px;">
-      <div class="eyebrow">Iščete zaposlitev ali kader?</div>
-      <h2>Naj vam pomagamo najti pravo rešitev.</h2>
-    </div>
-    <div class="grid-2" style="gap:20px;">
-      <div class="card" style="text-align:center;">
-        <h3>Iščete zaposlitev</h3>
-        <p>Oglejte si trenutno odprta delovna mesta in se prijavite še danes.</p>
-        <a href="prosta-delovna-mesta.html" class="btn btn-outline">Odprta delovna mesta →</a>
+<section class="section-tight">
+  <div class="container">
+    <div class="path-split">
+      <div class="path-card jobseeker">
+        <div class="path-tag">Za iskalce zaposlitve</div>
+        <h3>Poiščite naslednjo priložnost</h3>
+        <p>Prebrskajte odprta delovna mesta pri naših partnerskih podjetjih in se prijavite v nekaj minutah.</p>
+        <a href="prosta-delovna-mesta.html" class="btn btn-ghost-light">Odprta delovna mesta →</a>
       </div>
-      <div class="card" style="text-align:center;">
-        <h3>Iščete kader za podjetje</h3>
-        <p>Povejte nam, koga potrebujete — poskrbimo za iskanje in selekcijo.</p>
-        <a href="delodajalci.html#kontakt" class="btn btn-outline">Za delodajalce →</a>
+      <div class="path-card employer">
+        <div class="path-tag">Za delodajalce</div>
+        <h3>Poiščite pravi kader</h3>
+        <p>Od iskanja in selekcije do najema delavcev in kadrovske administracije — vse na enem mestu.</p>
+        <a href="delodajalci.html" class="btn btn-ghost-light">Naše storitve →</a>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -107,7 +194,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="assets/images/logo.png" alt="HR Center" style="height:34px; margin-bottom:14px; filter:brightness(0) invert(1);">
+        <img src="assets/images/logo.png" alt="HR Center" style="height:68px; margin-bottom:18px; filter:brightness(0) invert(1);">
         <p style="color:rgba(255,255,255,.6); font-size:14px; max-width:32ch;">Vaši ljudje, naša skrb. Kadrovska agencija z 10-letnimi izkušnjami na slovenskem trgu dela.</p>
         <div class="footer-social">
           <a href="https://www.instagram.com/hr_center_si/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.3 2.3.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.3 1.1.4 2.3.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.9-.4 2.3-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1.1.3-2.3.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.3-2.3-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.3-1.1-.4-2.3-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-1.9.4-2.3.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1.1-.3 2.3-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.8.1-1 .1-1.6.2-1.9.4-.5.2-.8.4-1.2.7-.3.3-.6.7-.7 1.2-.1.3-.3.9-.4 1.9-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c.1 1 .2 1.6.4 1.9.2.5.4.8.7 1.2.3.3.7.6 1.2.7.3.1.9.3 1.9.4 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c1-.1 1.6-.2 1.9-.4.5-.2.8-.4 1.2-.7.3-.3.6-.7.7-1.2.1-.3.3-.9.4-1.9.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c-.1-1-.2-1.6-.4-1.9-.2-.5-.4-.8-.7-1.2-.3-.3-.7-.6-1.2-.7-.3-.1-.9-.3-1.9-.4-1.3-.1-1.7-.1-4.8-.1zm0 3.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 1.8a3.7 3.7 0 1 0 0 7.4 3.7 3.7 0 0 0 0-7.4zm5.7-2a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z"/></svg></a>
@@ -119,7 +206,7 @@
         <h4>Strani</h4>
         <a href="o-nas.html">O nas</a>
         <a href="delodajalci.html">Za delodajalce</a>
-        <a href="prosta-delovna-mesta.html">Prosta delovna mesta</a>
+        <a href="prosta-delovna-mesta.html">Za iskalce zaposlitve</a>
         <a href="kalkulator-place.html">Kalkulator plače</a>
         <a href="kontakt.html">Kontakt</a>
       </div>
@@ -143,9 +230,9 @@
   </div>
 </footer>
 
-<script src="assets/js/jobs-data.js?v=20260828"></script>
-<script src="assets/js/main.js?v=20260828"></script>
-<script src="assets/js/calculator.js?v=20260828"></script>
+<script src="assets/js/jobs-data.js?v=20261113"></script>
+<script src="assets/js/main.js?v=20261115"></script>
+<script src="assets/js/calculator.js?v=20261114"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -6,10 +6,8 @@
 <title>Za delodajalce — Storitve iskanja in selekcije kadrov | HR Center</title>
 <meta name="description" content="HR Center za delodajalce: iskanje in selekcija kadrov, najem delavcev, urejanje delovnih dovoljenj, obračun plač in psihometrična testiranja.">
 <link rel="icon" href="assets/images/logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=20260828">
+<link rel="preload" href="assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/style.css?v=20261111m">
 </head>
 <body>
 
@@ -19,24 +17,24 @@
     <nav class="main-nav">
       <a href="o-nas.html" data-page="o-nas.html">O nas</a>
       <a href="delodajalci.html" data-page="delodajalci.html">Za delodajalce</a>
-      <a href="prosta-delovna-mesta.html" data-page="prosta-delovna-mesta.html">Prosta delovna mesta</a>
+      <a href="prosta-delovna-mesta.html" data-page="prosta-delovna-mesta.html">Za iskalce zaposlitve</a>
       <a href="kontakt.html" data-page="kontakt.html">Kontakt</a>
+      <a href="kalkulator-place.html" data-page="kalkulator-place.html" class="nav-mobile-only">Kalkulator plače</a>
     </nav>
     <div class="header-ctas">
-      <a href="#kontakt" class="btn btn-outline">Povprašajte</a>
-      <a href="prosta-delovna-mesta.html" class="btn btn-primary">Za iskalce zaposlitve</a>
       <a href="kalkulator-place.html" class="btn btn-calc">Kalkulator plače</a>
+      <a href="prosta-delovna-mesta.html#vpis-v-bazo" class="btn btn-db">Vpis v bazo</a>
       <button class="nav-toggle" aria-label="Odpri meni" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 
-<div class="page-hero">
+<div class="page-hero tint">
   <div class="container grid-2" style="align-items:center; gap:48px;">
     <div>
       <div class="eyebrow">Za delodajalce</div>
-      <h1>Kader, ki ustreza vašemu podjetju — ne samo razpisu.</h1>
-      <p>Prevzamemo breme iskanja in selekcije kadrov, da se lahko vi osredotočite na rast in razvoj svojega podjetja. Naša poglavitna naloga je zagotoviti najboljši kader za vaše potrebe.</p>
+      <h1 class="hero-claim">Pravo ujemanje. Več kot samo zaposlitev.</h1>
+      <p>Verjamemo, da je kakovosten kader več kot le ustrezna izobrazba in izkušnje. Zato iščemo ljudi, ki bodo s svojim znanjem, osebnostjo in motivacijo prispevali k vašemu uspehu.</p>
       <a href="#kontakt" class="btn btn-coral">Povprašajte za ponudbo</a>
     </div>
     <div class="quick-form-card">
@@ -68,6 +66,7 @@
       <h2>Pet korakov do prave kadrovske rešitve</h2>
     </div>
 
+    <div class="service-grid">
     <div class="service-row">
       <div class="service-num">01</div>
       <div>
@@ -103,16 +102,18 @@
         <p>Pridobite boljše razumevanje osebnostnih značilnosti in sposobnosti kandidatov, kar pomaga pri izbiri najbolj primernih kandidatov za določeno delovno mesto.</p>
       </div>
     </div>
+    </div>
   </div>
 </section>
 
-<section class="section-tight">
-  <div class="container grid-2" style="align-items:center; gap:56px;">
-    <div class="photo-frame"><img src="assets/images/photo-delodajalci.jpg" alt="Rokovanje ob uspešni zaposlitvi kandidata"></div>
-    <div>
-      <div class="eyebrow">Rezultat, ne samo proces</div>
-      <h2>Konec iskanja je zaposlitev, ki traja.</h2>
-      <p>Naš cilj ni le zapolniti prosto mesto — je najti kandidata, ki bo pri vas ostal in napredoval. Zato vsak korak selekcije merimo po tem, kako dobro kandidat ustreza vaši ekipi in kulturi, ne samo razpisu.</p>
+<section class="blend">
+  <div class="blend-visual left">
+    <img src="assets/images/photo-delodajalci-rukovanje.jpg" alt="Stisk roke ob sklenitvi dogovora na sestanku" style="object-position:60% 40%" width="1800" height="1200" loading="lazy">
+  </div>
+  <div class="container">
+    <div class="blend-copy push-right">
+      <h2>Rezultat, ki šteje. Kader, ki ostane.</h2>
+      <p>Naš cilj ni zgolj zapolniti prostega delovnega mesta, temveč najti človeka, ki bo postal pomemben del vaše ekipe. Zato pri vsakem izboru gledamo širše – preverjamo znanje, izkušnje, osebnost in ujemanje s kulturo vašega podjetja. Ker verjamemo v zaposlitve, ki trajajo.</p>
     </div>
   </div>
 </section>
@@ -195,31 +196,46 @@
 <section>
   <div class="container">
     <div class="section-head center">
-      <div class="eyebrow">Zaupajo nam</div>
-      <h2>Izbrana partnerska podjetja</h2>
-    </div>
-    <div class="pill-list" style="justify-content:center;">
-      <span class="pill">Sovita</span>
-      <span class="pill">Slorest</span>
-      <span class="pill">Mlinotest</span>
-      <span class="pill">Marché</span>
-      <span class="pill">Mercator</span>
-      <span class="pill">Lonstroff</span>
-      <span class="pill">Fragmat</span>
-      <span class="pill">Weiler</span>
-      <span class="pill">Smania</span>
-      <span class="pill">Intereuropa</span>
+      <h2>Med drugim nam zaupajo</h2>
     </div>
   </div>
+  <div class="marquee" aria-label="Podjetja, ki nam zaupajo">
+      <div class="marquee-track">
+        <ul class="marquee-group">
+          <li><span class="plogo sovita" role="img" aria-label="Sovita"></span></li>
+          <li><span class="plogo slorest" role="img" aria-label="Slorest"></span></li>
+          <li><span class="plogo mlinotest" role="img" aria-label="Mlinotest"></span></li>
+          <li><span class="plogo marche" role="img" aria-label="Marché"></span></li>
+          <li><span class="plogo mercator" role="img" aria-label="Mercator"></span></li>
+          <li><span class="plogo lonstroff" role="img" aria-label="Lonstroff"></span></li>
+          <li><span class="plogo fragmat" role="img" aria-label="Fragmat"></span></li>
+          <li><span class="plogo weiler" role="img" aria-label="Weiler"></span></li>
+          <li><span class="plogo smania" role="img" aria-label="Smania"></span></li>
+          <li><span class="plogo intereuropa" role="img" aria-label="Intereuropa"></span></li>
+        </ul>
+        <ul class="marquee-group" aria-hidden="true">
+          <li><span class="plogo sovita" role="img" aria-label="Sovita"></span></li>
+          <li><span class="plogo slorest" role="img" aria-label="Slorest"></span></li>
+          <li><span class="plogo mlinotest" role="img" aria-label="Mlinotest"></span></li>
+          <li><span class="plogo marche" role="img" aria-label="Marché"></span></li>
+          <li><span class="plogo mercator" role="img" aria-label="Mercator"></span></li>
+          <li><span class="plogo lonstroff" role="img" aria-label="Lonstroff"></span></li>
+          <li><span class="plogo fragmat" role="img" aria-label="Fragmat"></span></li>
+          <li><span class="plogo weiler" role="img" aria-label="Weiler"></span></li>
+          <li><span class="plogo smania" role="img" aria-label="Smania"></span></li>
+          <li><span class="plogo intereuropa" role="img" aria-label="Intereuropa"></span></li>
+        </ul>
+      </div>
+    </div>
 </section>
 
 <section id="kontakt" class="section-pale">
   <div class="container grid-2" style="align-items:flex-start; gap:56px;">
     <div>
-      <div class="eyebrow">Povprašajte</div>
-      <h2>Povejte nam, koga iščete.</h2>
+      <div class="eyebrow eyebrow-bold">Začnimo s pogovorom</div>
       <p>Izpolnite kratek obrazec in oglasili se vam bomo v najkrajšem možnem času z ustreznim predlogom sodelovanja.</p>
-      <p style="margin-top:32px;"><strong>E-pošta:</strong> <a href="mailto:info@hr-center.si" style="color:var(--teal-dark);">info@hr-center.si</a><br>
+      <p class="company-name">HR Center d.o.o.</p>
+      <p style="margin-top:0;"><strong>E-pošta:</strong> <a href="mailto:info@hr-center.si" style="color:var(--teal-dark);">info@hr-center.si</a><br>
       <strong>Telefon:</strong> <a href="tel:+38651676767" style="color:var(--teal-dark);">051 67 67 67</a></p>
     </div>
     <div class="form-card">
@@ -266,7 +282,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="assets/images/logo.png" alt="HR Center" style="height:34px; margin-bottom:14px; filter:brightness(0) invert(1);">
+        <img src="assets/images/logo.png" alt="HR Center" style="height:68px; margin-bottom:18px; filter:brightness(0) invert(1);">
         <p style="color:rgba(255,255,255,.6); font-size:14px; max-width:32ch;">Vaši ljudje, naša skrb. Kadrovska agencija z 10-letnimi izkušnjami na slovenskem trgu dela.</p>
         <div class="footer-social">
           <a href="https://www.instagram.com/hr_center_si/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.3 2.3.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.3 1.1.4 2.3.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.9-.4 2.3-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1.1.3-2.3.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.3-2.3-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.3-1.1-.4-2.3-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-1.9.4-2.3.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1.1-.3 2.3-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.8.1-1 .1-1.6.2-1.9.4-.5.2-.8.4-1.2.7-.3.3-.6.7-.7 1.2-.1.3-.3.9-.4 1.9-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c.1 1 .2 1.6.4 1.9.2.5.4.8.7 1.2.3.3.7.6 1.2.7.3.1.9.3 1.9.4 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c1-.1 1.6-.2 1.9-.4.5-.2.8-.4 1.2-.7.3-.3.6-.7.7-1.2.1-.3.3-.9.4-1.9.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c-.1-1-.2-1.6-.4-1.9-.2-.5-.4-.8-.7-1.2-.3-.3-.7-.6-1.2-.7-.3-.1-.9-.3-1.9-.4-1.3-.1-1.7-.1-4.8-.1zm0 3.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm0 1.8a3.7 3.7 0 1 0 0 7.4 3.7 3.7 0 0 0 0-7.4zm5.7-2a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z"/></svg></a>
@@ -278,7 +294,7 @@
         <h4>Strani</h4>
         <a href="o-nas.html">O nas</a>
         <a href="delodajalci.html">Za delodajalce</a>
-        <a href="prosta-delovna-mesta.html">Prosta delovna mesta</a>
+        <a href="prosta-delovna-mesta.html">Za iskalce zaposlitve</a>
         <a href="kalkulator-place.html">Kalkulator plače</a>
         <a href="kontakt.html">Kontakt</a>
       </div>
@@ -302,8 +318,8 @@
   </div>
 </footer>
 
-<script src="assets/js/jobs-data.js?v=20260828"></script>
-<script src="assets/js/main.js?v=20260828"></script>
+<script src="assets/js/jobs-data.js?v=20261113"></script>
+<script src="assets/js/main.js?v=20261115"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
