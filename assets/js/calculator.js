@@ -174,7 +174,7 @@
     const set = (id, v) => { $(id).textContent = v; };
     const show = (id, visible) => { $(id).style.display = visible ? '' : 'none'; };
 
-    function hideResult() { show('calc-result', false); show('calc-placeholder', true); }
+    function hideResult() { show('calc-result', false); show('calc-placeholder', true); $('calc-bar').classList.remove('show'); }
 
     function run() {
       const amountIn = num('calc-amount');
@@ -233,6 +233,7 @@
       show('calc-notes', notes.length > 0); set('calc-notes', notes.join(' '));
 
       show('calc-placeholder', false); show('calc-result', true);
+      set('bar-net', eur(r.netSalary)); $('calc-bar').classList.add('show');
     }
 
     document.querySelectorAll('.calc3 input, .calc3 select').forEach(el => {

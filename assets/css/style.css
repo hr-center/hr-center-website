@@ -65,6 +65,7 @@
 *, *::before, *::after{ box-sizing: border-box; }
 html{ scroll-behavior: smooth; }
 body{
+  overflow-x: clip;
   margin:0;
   font-family: var(--font-body);
   color: var(--ink);
@@ -149,9 +150,13 @@ button{ font-family: inherit; }
 /* ---------- Header ---------- */
 .site-header{
   position: sticky; top: 0; z-index: 100;
-  background: color-mix(in srgb, var(--paper) 86%, transparent);
-  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
+}
+/* zameglitev je na psevdo-elementu, da glava ne postane "containing block" za fiksni mobilni meni */
+.site-header::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
 .site-header .container{
   display:flex; align-items:center; justify-content:flex-start; gap: 32px;
@@ -180,10 +185,10 @@ button{ font-family: inherit; }
   .main-nav{
     position: fixed; inset: var(--header-h) 0 0 0; height: calc(100vh - var(--header-h));
     background: var(--paper); flex-direction: column; align-items: stretch;
-    padding: 20px 28px; gap: 4px; transform: translateX(100%);
-    transition: transform .25s ease; overflow-y:auto;
+    padding: 20px 28px; gap: 4px; transform: translateX(24px); opacity: 0; visibility: hidden;
+    transition: transform .25s ease, opacity .25s ease, visibility 0s linear .25s; overflow-y:auto;
   }
-  .main-nav.open{ transform: translateX(0); }
+  .main-nav.open{ transform: translateX(0); opacity: 1; visibility: visible; transition-delay: 0s; }
   .main-nav a{ padding: 16px 10px; border-bottom: 1px solid var(--line); border: none; border-radius:0; font-size:15px; }
   .main-nav a.nav-mobile-only{ display:block; }
   .nav-toggle{ display:block; }
@@ -832,4 +837,115 @@ textarea{ resize: vertical; min-height: 120px; }
 @media (max-width: 720px){
   .calc3{ grid-template-columns: 1fr; }
   .calc3-col{ padding: 32px 24px 34px; }
+}
+
+/* ================= Mobile standards pass (touch targets, text size, layout) ================= */
+html{ -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+img, svg, video{ max-width: 100%; }
+
+/* skupine s 3 stolpci se morajo prelomiti tudi na tablici in telefonu */
+@media (max-width: 900px){
+  .feature-rows.cols-3{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px){
+  .feature-rows, .feature-rows.cols-3{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 1180px){
+  :root{ --header-h: 84px; --logo-h: 68px; }
+  .nav-toggle{ width: 46px; height: 46px; display:grid; place-items:center; }
+}
+@media (max-width: 860px){
+  /* slike z mehkim prelivom: v polni širini, brez zamika */
+  .about-visual, .blend-visual{ width: 100% !important; margin: 0 0 8px !important; }
+  .hero-visual{ width: calc(100% + 56px); }
+}
+@media (max-width: 900px){
+  /* tipke in povezave najmanj 44 px */
+  .footer-grid a{ padding: 12px 0; font-size: 15.5px; }
+  .footer-social a{ width: 44px; height: 44px; }
+  .jf-opt{ min-height: 46px; padding: 8px 0; }
+  .jf-opt input, .calc3-check input, .consent input{ width: 22px; height: 22px; }
+  .jf-reset{ padding: 12px 8px; }
+  .back-link{ padding: 12px 0; margin-bottom: 14px; }
+  .calc3-seg-btn{ padding: 13px 14px; min-height: 46px; }
+  .btn{ min-height: 46px; }
+  .main-nav a{ min-height: 52px; display:flex; align-items:center; font-size: 17px; }
+  .main-nav a.nav-mobile-only{ display:flex; }
+}
+@media (max-width: 720px){
+  :root{ --logo-h: 62px; --header-h: 80px; }
+  /* besedilo ne sme biti premajhno; vnosna polja 16 px (brez povečave na iPhone) */
+  .eyebrow{ font-size: 13px; }
+  .field .hint, .calc-hint, .form-note, .calc-disclaimer{ font-size: 13px; }
+  .job-tag{ font-size: 12.5px; }
+  .jf-opt .n{ font-size: 13px; }
+  input, select, textarea{ font-size: 16px !important; }
+  .container{ padding-left: 20px; padding-right: 20px; }
+  .path-card, .calc3-col{ padding-left: 22px; padding-right: 22px; }
+}
+
+@media (max-width: 900px){
+  .consent input{ flex: none; }
+  .breadcrumb{ font-size: 14px; }
+  .breadcrumb a{ display:inline-block; padding: 12px 0; }
+}
+@media (max-width: 720px){
+  .calc3 .calc-hint, .calc3-chip, .pill{ font-size: 13px; }
+}
+
+/* filter: zložljiv na telefonu */
+.jf-toggle{ display:flex; align-items:center; gap:10px; background:none; border:none; padding:0; color: var(--ink); font: inherit; font-size:22px; font-weight:700; cursor:default; }
+.jf-chev{ display:none; transition: transform .2s ease; }
+@media (max-width: 900px){
+  .jf-toggle{ cursor:pointer; min-height:46px; }
+  .jf-chev{ display:inline; }
+  .job-filters.collapsed #jf-groups{ display:none; }
+  .job-filters.collapsed .jf-chev{ transform: rotate(-90deg); }
+  .job-filters{ padding: 14px 20px; }
+}
+
+/* kalkulator: pritrjena vrstica z rezultatom na telefonu */
+.calc3-placeholder p{ color: inherit; }
+.calc3-bar{ display:none; }
+@media (max-width: 900px){
+  .calc3-bar{
+    position: fixed; left:0; right:0; bottom:0; z-index: 90;
+    display:none; align-items:center; justify-content:space-between; gap:12px;
+    background: var(--ink); color:#fff; padding: 10px 20px calc(10px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -6px 24px rgba(6,40,43,.25);
+  }
+  .calc3-bar.show{ display:flex; }
+  .calc3-bar strong{ display:block; font-size:20px; }
+  .calc3-bar span{ font-size:13px; opacity:.9; }
+}
+
+/* hamburger -> križec, zaklep ozadja ob odprtem meniju */
+.nav-toggle span{ transition: transform .22s ease, opacity .18s ease; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateY(10px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-10px) rotate(-45deg); }
+body.nav-open{ overflow: hidden; }
+
+/* stran delovnega mesta na telefonu: fotografija kot pasica na vrhu, ne kot zamegljeno ozadje */
+@media (max-width: 860px){
+  .job-page{ padding-top: 0; }
+  .job-visual{ position: relative; width: 100%; height: 230px; margin: 0 0 8px; }
+  .job-visual img{
+    opacity: .9;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
+    -webkit-mask-composite: source-over; mask-composite: add;
+  }
+}
+@media (max-width: 720px){
+  .breadcrumb{ display: none; }
+}
+
+@media (max-width: 1180px){
+  .nav-toggle{ display:flex; flex-direction:column; align-items:center; justify-content:center; }
+}
+
+@media (max-width: 720px){
+  .calc3-out span, .calc3-hourly, .job-tag{ font-size: 13px; }
 }

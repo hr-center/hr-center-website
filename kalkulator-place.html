@@ -7,7 +7,7 @@
 <meta name="description" content="Brezplačen kalkulator plače za Slovenijo. Izračunajte neto plačo iz bruto zneska ali obratno, z malico, prevozom, bonitetami in olajšavami, po veljavni zakonodaji za leto 2026.">
 <link rel="icon" href="assets/images/logo.png">
 <link rel="preload" href="assets/fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=20261111m">
+<link rel="stylesheet" href="assets/css/style.css?v=20261111u">
 </head>
 <body>
 
@@ -128,7 +128,7 @@
         <span class="calc-hint">Otrok s posebno nego ne štejte še enkrat med navadne otroke. Drugi družinski člani so npr. nezaposlen zakonec ali partner, starši ali posvojitelji brez lastnih dohodkov.</span>
       </div>
 
-      <div class="calc3-col s3">
+      <div class="calc3-col s3" id="calc-step3">
         <div class="calc3-step"><b>03</b><h2>Izračun</h2></div>
 
         <div id="calc-placeholder" class="calc3-placeholder">
@@ -166,6 +166,8 @@
       </div>
 
     </div>
+
+    <div class="calc3-bar" id="calc-bar" aria-live="polite"><span>Neto plača <strong id="bar-net">—</strong></span><a href="#calc-step3" class="btn btn-ghost-light">Izračun ↓</a></div>
 
     <p class="calc-disclaimer">Izračun je okviren in namenjen splošni orientaciji. Temelji na dohodninski lestvici in olajšavah za leto 2026 (Uradni list RS, št. 104/25), prispevkih 23,10 % (delojemalec) in 17,10 % (delodajalec) ter na zakonskih mejah neobdavčenih povračil stroškov (malica 7,96 € na dan, prevoz 0,21 € na km, najmanj 140 € na mesec). Povračila stroškov so prikazana poleg plače in se ne vštevajo v bruto, razen dela nad neobdavčeno mejo. Pri olajšavah za otroke z vzdrževanimi člani je upoštevan vrstni red po številu. Ni davčno ali finančno svetovanje — za zavezujoč izračun se obrnite na računovodjo ali FURS.</p>
   </div>
@@ -231,8 +233,8 @@
 </footer>
 
 <script src="assets/js/jobs-data.js?v=20261113"></script>
-<script src="assets/js/main.js?v=20261115"></script>
-<script src="assets/js/calculator.js?v=20261114"></script>
+<script src="assets/js/main.js?v=20261117"></script>
+<script src="assets/js/calculator.js?v=20261116"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

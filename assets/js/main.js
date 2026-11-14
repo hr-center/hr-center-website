@@ -17,12 +17,16 @@ function initNav(){
   const toggle = document.querySelector('.nav-toggle');
   const nav = document.querySelector('.main-nav');
   if(!toggle || !nav) return;
-  toggle.addEventListener('click', () => {
-    nav.classList.toggle('open');
-    const expanded = nav.classList.contains('open');
-    toggle.setAttribute('aria-expanded', expanded);
-  });
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+  function setOpen(open){
+    nav.classList.toggle('open', open);
+    document.body.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Zapri meni' : 'Odpri meni');
+  }
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && nav.classList.contains('open')){ setOpen(false); toggle.focus(); } });
+  window.addEventListener('resize', () => { if(window.innerWidth > 1180) setOpen(false); });
 }
 
 function setActiveNavLink(){
@@ -160,10 +164,14 @@ function renderJobList(){
   }
 
   if(side){
-    side.innerHTML = `<div class="jf-head"><h2>Filter</h2><button type="button" class="jf-reset">Počisti</button></div>` +
+    side.innerHTML = `<div class="jf-head"><button type="button" class="jf-toggle" aria-expanded="true" aria-controls="jf-groups"><span>Filter</span><span class="jf-chev" aria-hidden="true">▾</span></button><button type="button" class="jf-reset">Počisti</button></div><div id="jf-groups">` +
       groups.map(g => `<div class="jf-group"><h3>${g.title}</h3>` +
         counts(g.key).map(([val, n]) => `<label class="jf-opt"><input type="checkbox" data-key="${g.key}" value="${val}"><span>${val}</span><span class="n">${n}</span></label>`).join('') +
-        `</div>`).join('');
+        `</div>`).join('') + `</div>`;
+    const tgl = side.querySelector('.jf-toggle');
+    const setCollapsed = (c) => { side.classList.toggle('collapsed', c); tgl.setAttribute('aria-expanded', String(!c)); };
+    setCollapsed(window.matchMedia('(max-width: 900px)').matches);
+    tgl.addEventListener('click', () => setCollapsed(!side.classList.contains('collapsed')));
     side.addEventListener('change', (e) => {
       const el = e.target;
       if(!el.dataset || !el.dataset.key) return;
