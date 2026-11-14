@@ -922,9 +922,9 @@ img, svg, video{ max-width: 100%; }
 
 /* hamburger -> križec, zaklep ozadja ob odprtem meniju */
 .nav-toggle span{ transition: transform .22s ease, opacity .18s ease; }
-.nav-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateY(10px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity: 0; }
-.nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-10px) rotate(-45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
 body.nav-open{ overflow: hidden; }
 
 /* stran delovnega mesta na telefonu: fotografija kot pasica na vrhu, ne kot zamegljeno ozadje */
@@ -949,3 +949,7 @@ body.nav-open{ overflow: hidden; }
 @media (max-width: 720px){
   .calc3-out span, .calc3-hourly, .job-tag{ font-size: 13px; }
 }
+
+/* ikona menija: črte se ne smejo skrčiti (flex-shrink) */
+.nav-toggle{ padding: 0; gap: 6px; }
+.nav-toggle span{ flex: 0 0 2px; height: 2px; width: 24px; margin: 0; border-radius: 2px; background: var(--ink); }
